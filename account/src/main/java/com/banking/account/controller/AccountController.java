@@ -1,6 +1,7 @@
 package com.banking.account.controller;
 
 import com.banking.account.constants.AccountsConstants;
+import com.banking.account.dto.AccountContactInfoDto;
 import com.banking.account.dto.CustomerDto;
 import com.banking.account.dto.ErrorResponseDto;
 import com.banking.account.dto.ResponseDto;
@@ -36,6 +37,9 @@ public class AccountController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private AccountContactInfoDto accountContactInfoDto;
 
     public AccountController(IAccountService iAccountService) {
         this.iAccountService = iAccountService;
@@ -182,6 +186,28 @@ public class AccountController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_VERSION"));
+    }
+
+
+    @Operation(summary = "Get Contact info",
+            description = "Contact info details that can be reached out in case of any issues")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal server error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )})
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountContactInfoDto> getContactInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountContactInfoDto);
     }
 
 
