@@ -27,8 +27,9 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AccountController {
 
-    private final IAccountService iAccountService;
-    IAccountService accountService;
+    private IAccountService iAccountService;
+
+
 
     @Operation(summary = "Create Account REST API",
             description = "REST API to create a new Customer & Account")
@@ -47,7 +48,7 @@ public class AccountController {
     })
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
-        accountService.createAccount(customerDto);
+        iAccountService.createAccount(customerDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
     }
 
@@ -94,7 +95,7 @@ public class AccountController {
     )
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
-        boolean isUpdated = accountService.updateAccount(customerDto);
+        boolean isUpdated = iAccountService.updateAccount(customerDto);
         if (isUpdated) {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
         } else {
@@ -122,7 +123,7 @@ public class AccountController {
             )})
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digit") String mobileNumber) {
-        boolean isDeleted = accountService.deleteAccount(mobileNumber);
+        boolean isDeleted = iAccountService.deleteAccount(mobileNumber);
         if (isDeleted) {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
         } else {
