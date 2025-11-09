@@ -1,0 +1,14 @@
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to DummyBank loans related QA APIs "
+  contactDetails:
+    name: "Vijay Raj  - Senior Developer"
+    email: "vijay.hsc@dev.com"
+  onCallSupport:
+    - (222) 235-1243
+    - (222) 223-1367
+
+
+

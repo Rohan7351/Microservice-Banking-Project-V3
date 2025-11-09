@@ -23,7 +23,7 @@ build:
   version: "1.0"
 
 accounts:
-  message: "Welcome to DummyBank accounts related local APIs "
+  message: "Welcome to DummyBank cards related local APIs "
   contactDetails:
     name: "Rohan Rana - Developer"
     email: "rohan@dev.com"
