@@ -1,6 +1,10 @@
 server:
   port: 8090
 spring:
+  application:
+    name: "cards"
+  profiles:
+    active: "prod"
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -14,17 +18,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  profiles:
-    active: "qa"
-
-build:
-  version: "2.0"
-
-accounts:
-  message: "Welcome to DummyBank accounts related QA APIs "
-  contactDetails:
-    name: "Vijay Raj  - Senior Developer"
-    email: "vijay.hsc@dev.com"
-  onCallSupport:
-    - (222) 235-1243
-    - (222) 223-1367
+  config:
+    import: "optional:configserver:http://localhost:8071/"

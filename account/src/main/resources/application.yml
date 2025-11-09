@@ -2,7 +2,10 @@ server:
   port: 8080
 spring:
   application:
-    name: account
+    name: "account"
+  profiles:
+    active: "prod"
+
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -16,22 +19,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  profiles:
-    active:
-      - "qa"
-#      -  "prod"
-
-build:
-  version: "1.0"
-
-accounts:
-  message: "Welcome to DummyBank accounts related local APIs "
-  contactDetails:
-    name: "Rohan Rana - Developer"
-    email: "rohan@dev.com"
-  onCallSupport:
-    - (555) 555-1234
-    - (555) 523-1345
-
+  config:
+    import: "optional:configserver:http://localhost:8071/"
 
 

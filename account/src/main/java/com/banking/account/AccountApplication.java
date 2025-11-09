@@ -10,9 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableConfigurationProperties(AccountContactInfoDto.class)
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 public class AccountApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AccountApplication.class, args);
 	}
-
 }
