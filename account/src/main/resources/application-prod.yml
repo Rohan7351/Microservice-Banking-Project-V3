@@ -1,0 +1,19 @@
+#spring:
+#  config:
+#    activate:
+#      on-profile: "qa"
+
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to DummyBank accounts related PROD APIs "
+  contactDetails:
+    name: "Oppy Connor  -  Manager"
+    email: "connor.oppy@dev.com"
+  onCallSupport:
+    - (112) 023-5746
+    - (112) 968-2354
+
+
+

@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -185,7 +184,7 @@ public class AccountController {
     public ResponseEntity<String> getJavaVersion(){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(environment.getProperty("JAVA_VERSION"));
+                .body(environment.getProperty("JAVA_HOME"));
     }
 
 

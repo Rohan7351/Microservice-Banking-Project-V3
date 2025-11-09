@@ -1,0 +1,19 @@
+#spring:
+#  config:
+#    activate:
+#      on-profile: "qa"
+
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to DummyBank accounts related QA APIs "
+  contactDetails:
+    name: "Vijay Raj  - Senior Developer"
+    email: "vijay.hsc@dev.com"
+  onCallSupport:
+    - (222) 235-1243
+    - (222) 223-1367
+
+
+
