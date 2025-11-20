@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "accounts")
+@ConfigurationProperties(prefix = "loans")
 public class LoansContactInfoDto{
     String message;
 

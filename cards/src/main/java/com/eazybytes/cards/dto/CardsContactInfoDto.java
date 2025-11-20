@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "accounts")
+@ConfigurationProperties(prefix = "cards")
 public class CardsContactInfoDto {
     String message;
 
