@@ -11,8 +11,10 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
-    networks:
-      - rohanbank
+    extends:
+      file: common-cofig.yml
+      service: network-deploy-service
+
 
   configserver:
     image: "rohan7351/configserver:v1"
@@ -28,12 +30,10 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - rohanbank
+    extends:
+      file: common-cofig.yml
+      service: microservice-base-config
+
   accounts:
     image: "rohan7351/account:v1"
     container_name: accounts-ms
@@ -42,16 +42,11 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - rohanbank
     environment:
       SPRING_APPLICATION_NAME: "account"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-cofig.yml
+      service: microservice-configserver-config
 
   loans:
     image: "rohan7351/loans:v1"
@@ -61,16 +56,11 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - rohanbank
     environment:
       SPRING_APPLICATION_NAME: "loans"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-cofig.yml
+      service: microservice-configserver-config
 
   cards:
     image: "rohan7351/cards:v1"
@@ -80,16 +70,11 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - rohanbank
     environment:
       SPRING_APPLICATION_NAME: "cards"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-cofig.yml
+      service: microservice-configserver-config
 networks:
-  eazybank:
+  rohanbank:
     driver: "bridge"
