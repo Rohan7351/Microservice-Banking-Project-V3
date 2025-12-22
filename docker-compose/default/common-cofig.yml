@@ -1,6 +1,6 @@
 services:
    network-deploy-service:
-     network:
+     networks:
        - rohanbank
 
    microservice-base-config:
