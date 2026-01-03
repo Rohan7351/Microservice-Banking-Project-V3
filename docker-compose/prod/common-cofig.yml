@@ -23,8 +23,6 @@ services:
       resources:
         limits:
           memory: 700m
-    environment:
-      SPRING_RABBITMQ_HOST: "rabbit"
 
 
 
@@ -36,3 +34,9 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: accountsdb
+
+  microservice-eurekaserver-config:
+    extends:
+      service: microservice-configserver-config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
