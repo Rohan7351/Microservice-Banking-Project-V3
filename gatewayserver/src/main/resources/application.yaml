@@ -11,6 +11,9 @@ spring:
             locator:
               enabled: false
               lower-case-service-id: true
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 4s
 
 management:
   endpoints:
@@ -36,11 +39,16 @@ logging:
       banking:
         gatewayserver: DEBUG
 
-resilience4j.circuitbreaker:
-#  accountCircuitBreaker:
-  configs:
-    default:
-      slidingWindowSize: 10
-      permittedNumberOfCallsInHalfOpenState: 2
-      failureRateThreshold: 50
-      waitDurationInOpenState: 90000
+resilience4j:
+  circuitbreaker:
+#    accountCircuitBreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 2
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 4000
