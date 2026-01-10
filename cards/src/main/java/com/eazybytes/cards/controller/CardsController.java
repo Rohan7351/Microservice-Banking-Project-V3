@@ -197,6 +197,7 @@ public class CardsController {
                             schema = @Schema(implementation = ErrorResponseDto.class)
                     )
             )})
+
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo(){
         return ResponseEntity

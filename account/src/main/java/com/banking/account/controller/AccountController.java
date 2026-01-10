@@ -6,6 +6,7 @@ import com.banking.account.dto.CustomerDto;
 import com.banking.account.dto.ErrorResponseDto;
 import com.banking.account.dto.ResponseDto;
 import com.banking.account.service.IAccountService;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -30,6 +33,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api", produces = (MediaType.APPLICATION_JSON_VALUE))
 @Validated
 public class AccountController {
+
+    Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     private IAccountService iAccountService;
 
@@ -160,13 +165,21 @@ public class AccountController {
                             schema = @Schema(implementation = ErrorResponseDto.class)
                     )
             )})
+    @Retry(name = "getBuildInfo", fallbackMethod = "getBuildInfoFallback")
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo(){
+        logger.debug("Account getBuildInfo API invoked");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
     }
 
+
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("1.0.2");
+    }
 
     @Operation(summary = "Get Java version",
             description = "Get Java version details that is installed into accounts microservices")
