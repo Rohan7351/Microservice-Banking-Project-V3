@@ -6,6 +6,7 @@ import com.banking.account.dto.CustomerDto;
 import com.banking.account.dto.ErrorResponseDto;
 import com.banking.account.dto.ResponseDto;
 import com.banking.account.service.IAccountService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -195,12 +196,19 @@ public class AccountController {
                             schema = @Schema(implementation = ErrorResponseDto.class)
                     )
             )})
+    @RateLimiter(name = "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion(){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
     }
+
+        public ResponseEntity<String> getJavaVersionFallback(Throwable throwable){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body("JAVA 17");
+        }
 
 
     @Operation(summary = "Get Contact info",
