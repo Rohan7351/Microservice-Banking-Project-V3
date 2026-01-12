@@ -37,6 +37,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -104,7 +105,7 @@
                 <version>3.4.6</version>
                 <configuration>
                     <to>
-                        <image>rohan7351/${project.artifactId}:V5</image>
+                        <image>rohan7351/${project.artifactId}:V6</image>
                     </to>
                 </configuration>
             </plugin>
