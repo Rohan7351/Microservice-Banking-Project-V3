@@ -3,18 +3,18 @@ services:
      networks:
        - rohanbank
 
-   microservice-db-config:
-     extends:
-       service: network-deploy-service
-     image: mysql
-     healthcheck:
-       test: [ "CMD","mysqladmin","ping","-h","localhost" ]
-       timeout: 10s
-       retries: 10
-       interval: 10s
-       start_period: 10s
-     environment:
-       MYSQL_ROOT_PASSWORD: root
+#   microservice-db-config:
+#     extends:
+#       service: network-deploy-service
+#     image: mysql
+#     healthcheck:
+#       test: [ "CMD","mysqladmin","ping","-h","localhost" ]
+#       timeout: 10s
+#       retries: 10
+#       interval: 10s
+#       start_period: 10s
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root
 
    microservice-base-config:
      extends:
@@ -23,6 +23,11 @@ services:
        resources:
          limits:
            memory: 700m
+     environment:
+       JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-2.22.0.jar"
+       OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4318
+       OTEL_METRICS_EXPORTER: none
+       OTEL_LOGS_EXPORTER: none
 
 
 
@@ -32,8 +37,8 @@ services:
      environment:
        SPRING_PROFILES_ACTIVE: default
        SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
-       MYSQL_ROOT_PASSWORD: root
-       MYSQL_DATABASE: accountsdb
+#       MYSQL_ROOT_PASSWORD: root
+#       MYSQL_DATABASE: accountsdb
 
    microservice-eurekaserver-config:
      extends:
