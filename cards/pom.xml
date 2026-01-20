@@ -114,7 +114,7 @@
                 <version>3.4.6</version>
                 <configuration>
                     <to>
-                        <image>rohan7351/${project.artifactId}:V6</image>
+                        <image>rohan7351/${project.artifactId}:V7</image>
                     </to>
                 </configuration>
             </plugin>
