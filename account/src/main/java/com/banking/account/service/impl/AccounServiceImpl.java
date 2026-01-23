@@ -2,6 +2,7 @@ package com.banking.account.service.impl;
 
 import com.banking.account.constants.AccountsConstants;
 import com.banking.account.dto.AccountsDto;
+import com.banking.account.dto.AccountsMsgDto;
 import com.banking.account.dto.CustomerDto;
 import com.banking.account.entity.Accounts;
 import com.banking.account.entity.Customer;
@@ -13,6 +14,9 @@ import com.banking.account.repository.AccountsRepository;
 import com.banking.account.repository.CustomerRepository;
 import com.banking.account.service.IAccountService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +29,10 @@ public class AccounServiceImpl implements IAccountService {
 
     CustomerRepository customerRepository;
     AccountsRepository accountsRepository;
+    private final StreamBridge streamBridge;
+
+
+    private static final Logger log = LoggerFactory.getLogger(AccounServiceImpl.class);
 
     @Override
     public void createAccount(CustomerDto customerDto) {
@@ -36,7 +44,16 @@ public class AccounServiceImpl implements IAccountService {
 
 
       Customer savedCustomer = customerRepository.save(customer);
-      accountsRepository.save(createNewAccount(savedCustomer));
+      Accounts savedAccount = accountsRepository.save(createNewAccount(savedCustomer));
+      sendCommunication(savedAccount,savedCustomer);
+    }
+
+    private void sendCommunication(Accounts account, Customer customer) {
+        var accountsMsgDto = new AccountsMsgDto(account.getAccountNumber(), customer.getName(),
+                customer.getEmail(), customer.getMobileNumber());
+        log.info("Sending Communication request for the details: {}", accountsMsgDto);
+        var result = streamBridge.send("sendCommunication-out-0", accountsMsgDto);
+        log.info("Is the Communication request successfully triggered ? : {}", result);
     }
 
 /**
@@ -118,4 +135,21 @@ public class AccounServiceImpl implements IAccountService {
         return true;
     }
 
+    /**
+     * @param accountNumber - Long
+     * @return boolean indicating if the update of communication status is successful or not
+     */
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if(accountNumber !=null ){
+            Accounts accounts = accountsRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "AccountNumber", accountNumber.toString())
+            );
+            accounts.setCommunicationSw(true);
+            accountsRepository.save(accounts);
+            isUpdated = true;
+        }
+        return  isUpdated;
+    }
 }
