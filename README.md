@@ -14,9 +14,9 @@
 
 <p align="center">
   <a href="https://www.linkedin.com/in/rohan-rana-228a2b227/">
-  <img src="https://logowik.com/content/uploads/images/linkedin-new4645.jpg"
+  <img src="https://logos-world.net/wp-content/uploads/2020/05/Linkedin-Logo.png"
        alt="LinkedIn"
-       width="50"/>
+       width="45"/>
 </a>
 
   </a>
