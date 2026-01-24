@@ -1,4 +1,4 @@
-<h3 align="center">Mini Bank System</h3>
+<h3 align="center">Banking Microservice Platform</h3>
 
 <p align="center">
     The project showcase for microservice position.
@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://www.linkedin.com/in/rohan-rana-228a2b227/">
-    <img src="https://logos-world.net/wp-content/uploads/2020/05/Linkedin-Logo.png?style=flat&label=%40anguyenit98&logo=twitter&color=0bf&logoColor=fff" alt="Linkedin" />
+    <img src="https://logos-world.net/wp-content/uploads/2020/06/Linkedin-Logo-2011.png?style=flat&label=%40anguyenit98&logo=twitter&color=0bf&logoColor=fff" alt="Linkedin" />
   </a>
 
 </p>
