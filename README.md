@@ -14,7 +14,11 @@
 
 <p align="center">
   <a href="https://www.linkedin.com/in/rohan-rana-228a2b227/">
-    <img src="https://logos-world.net/wp-content/uploads/2020/06/Linkedin-Logo-2011.png?style=flat&label=%40anguyenit98&logo=twitter&color=0bf&logoColor=fff" alt="Linkedin" />
+  <img src="https://logos-world.net/wp-content/uploads/2020/06/Linkedin-Logo-2011.png"
+       alt="LinkedIn"
+       width="40"/>
+</a>
+
   </a>
 
 </p>
