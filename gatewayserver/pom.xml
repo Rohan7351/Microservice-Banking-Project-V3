@@ -134,7 +134,7 @@
 				<version>3.5.1</version>
 				<configuration>
 					<to>
-                        <image>rohan7351/${project.artifactId}:V8</image>
+                        <image>rohan7351/${project.artifactId}:V9</image>
 					</to>
 				</configuration>
 			</plugin>
